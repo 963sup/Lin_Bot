@@ -29,8 +29,8 @@ Verification evidence must distinguish:
 
 If any stage fails, report that stage and the actual error. Correct the known cause before retrying; use targeted file search for independent work. Do not repeatedly reinstall tools or treat an empty language-server list as functional LSP.
 
-## ESLint replacement policy
+## Lint replacement contract
 
-ESLint is replaceable. PR #6 uses Biome for formatting and migrated lint checks, but its pinned version does not fully replace four enabled checks: invalid RegExp, unexpected multiline expressions, TypeScript unused expressions and triple-slash references. A minimal ESLint compatibility layer preserves those checks. A future replacement must demonstrate equivalent behavior on positive/negative examples before removing the layer; a different tool's speed claim is not evidence of rule parity.
+Biome handles formatting and migrated lint checks. Oxlint supplies native checks for invalid RegExp, unexpected multiline expressions, TypeScript unused expressions and triple-slash references. It does not load JavaScript lint plugins. Before changing either tool, run the positive/negative fixtures in `tests/integration/lint-policy.test.ts` and the full check command. A different tool's speed claim is not evidence of rule parity; do not suppress a failing rule to complete a migration.
 
 Knip checks unused files, exports and dependencies; dependency-cruiser checks permitted dependency directions; TypeScript checks types. None of these substitutes for the other tools or for behavioral tests.

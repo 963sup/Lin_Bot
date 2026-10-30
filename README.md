@@ -29,7 +29,7 @@ pnpm run doctor
 pnpm run env:check
 ```
 
-`pnpm run check` 包含 Biome／ESLint 相容檢查、格式、型別、測試、架構依賴、AGENTS 覆蓋、Knip 與建置。目前只提供基礎程式、測試與規則，P2 才加入 LINE Messaging API 與 Webhook。
+`pnpm run check` 包含 Biome／Oxlint 檢查、格式、型別、測試、架構依賴、AGENTS 覆蓋、Knip 與建置。目前只提供基礎程式、測試與規則，P2 才加入 LINE Messaging API 與 Webhook。
 
 ## Documents
 

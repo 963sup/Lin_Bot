@@ -9,7 +9,7 @@ The GitHub Repository was empty. There are no confirmed LINE Bot business rules,
 
 ## Decision
 
-Use one pnpm-managed TypeScript package (Node.js 22+, Fastify) with Vitest, ESLint, Prettier and GitHub Actions. Establish AGENTS.md, repo-local skills and the architecture boundary document. Implement only a non-sensitive health endpoint now. Plan DDD/Hexagonal module boundaries without fabricating business features.
+Use one pnpm-managed TypeScript package (Node.js 22+, Fastify) with Vitest, automated lint/format checks and GitHub Actions (quality tools updated by [ADR 0002](0002-quality-toolchain.md)). Establish AGENTS.md, repo-local skills and the architecture boundary document. Implement only a non-sensitive health endpoint now. Plan DDD/Hexagonal module boundaries without fabricating business features.
 
 ## Consequences
 

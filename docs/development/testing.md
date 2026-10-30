@@ -23,7 +23,7 @@ No test should depend on production credentials or personal data.
 
 ## Tool responsibilities
 
-- Biome handles formatting and migrated lint rules over TypeScript source/tests/scripts and root JavaScript tool configuration. ESLint retains only four compatibility rules listed in `eslint.config.mjs`; this is a staged migration, not a claim of complete rule parity. Formatting does not rewrite Markdown, YAML or unrelated JSON.
+- Biome handles formatting and migrated lint rules over TypeScript source/tests/scripts and root JavaScript tool configuration. Oxlint supplies four complementary checks in `.oxlintrc.json`, verified by `tests/integration/lint-policy.test.ts`. Formatting does not rewrite Markdown, YAML or unrelated JSON.
 - TypeScript remains the type checker. Fastify, Vitest and tsx remain in use.
 - Knip detects unused files, exports and dependencies. It discovers the HTTP entry from package scripts and test entries from its Vitest integration; `knip.json` declares engineering scripts as additional entrypoints. Do not declare every source file an entry or add broad ignores to silence findings. New workers must have real entrypoint wiring. No automatic `--fix` is used in CI.
 - Build cleans `dist/` before compilation and excludes colocated tests. The test tsconfig keeps those tests included for type checking. A regression compiles to a temporary directory and verifies that test artifacts are absent.
