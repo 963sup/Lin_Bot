@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug HTTP server (built)",
+      "program": "${workspaceFolder}/dist/entrypoints/http.js",
+      "preLaunchTask": "pnpm: build",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
