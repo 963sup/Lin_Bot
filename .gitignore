@@ -1,0 +1,16 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+.DS_Store
+.idea/
+.vscode/*.local.json
+.terraform/
+*.tfstate
+*.tfstate.*
