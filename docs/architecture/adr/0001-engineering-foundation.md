@@ -16,4 +16,4 @@ Use one pnpm-managed TypeScript package (Node.js 22+, Fastify) with Vitest, ESLi
 - Easy to run and maintain as a single service.
 - Future business modules can adopt independent Domain/Application/Adapters boundaries.
 - No database, queue, webhook, infra provisioning or release/deployment workflow until their requirements are known.
-- A committed pnpm lockfile and frozen CI install should be added before declaring a reproducible production build.
+- A generated pnpm lockfile is committed and CI uses frozen installation. Production deployment still requires a separate operational readiness review.
