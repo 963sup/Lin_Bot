@@ -31,6 +31,12 @@ jobs:
           node-version-file: .nvmrc
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
+      # Temporary bootstrap step. Removed after the generated lockfile is committed.
+      - name: Emit generated lockfile for bootstrap
+        run: |
+          echo "__PNPM_LOCK_BEGIN__"
+          cat pnpm-lock.yaml
+          echo "__PNPM_LOCK_END__"
       - name: Lint
         run: pnpm run lint
       - name: Typecheck
