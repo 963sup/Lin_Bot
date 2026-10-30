@@ -14,6 +14,7 @@ const governanceRoots = [
   'tests',
   'infra',
   'db',
+  'assets',
 ] as const;
 
 const ignoredDirectories = new Set(['node_modules', '.git', 'dist', 'coverage', '.terraform']);
