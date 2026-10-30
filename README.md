@@ -4,7 +4,7 @@ LINE Messaging API Bot 的工程基礎專案。P0/P1 先建立可驗證的 TypeS
 
 ## Requirements
 
-- Node.js 22+
+- Node.js 22.12+（22.x）、24.x 或 26+
 - pnpm 10.20.0（可使用 Corepack）
 - Git
 
@@ -29,7 +29,7 @@ pnpm run doctor
 pnpm run env:check
 ```
 
-CI 另外執行 `pnpm run architecture:check`。目前只提供基礎程式、測試與規則，P2 才加入 LINE Messaging API 與 Webhook。
+`pnpm run check` 包含 Biome／Oxlint 檢查、格式、型別、測試、架構依賴、AGENTS 覆蓋、Knip 與建置。目前只提供基礎程式、測試與規則，P2 才加入 LINE Messaging API 與 Webhook。
 
 ## Documents
 

@@ -1,8 +1,8 @@
 import { execFileSync } from 'node:child_process';
 
-const majorVersion = Number(process.versions.node.split('.')[0]);
-if (!Number.isInteger(majorVersion) || majorVersion < 22) {
-  console.error('Node.js 22 or later is required.');
+const [majorVersion = 0, minorVersion = 0] = process.versions.node.split('.').map(Number);
+if (!((majorVersion === 22 && minorVersion >= 12) || majorVersion === 24 || majorVersion >= 26)) {
+  console.error('Use Node.js 22.12+, 24.x, or 26+ as declared in package.json.');
   process.exitCode = 1;
 } else {
   console.info(`Node.js: ${process.version}`);

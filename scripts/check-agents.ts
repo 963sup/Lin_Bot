@@ -1,10 +1,12 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
-import { join, relative, resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { existsSync, readFileSync, realpathSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const governanceRoots = [
   '.github',
   '.codex',
+  '.serena',
   '.agents',
   '.vscode',
   '.devcontainer',
@@ -16,8 +18,6 @@ const governanceRoots = [
   'db',
   'assets',
 ] as const;
-
-const ignoredDirectories = new Set(['node_modules', '.git', 'dist', 'coverage', '.terraform']);
 
 function checkInstruction(directory: string, root: string, isRoot: boolean): string[] {
   const file = join(directory, 'AGENTS.md');
@@ -42,37 +42,52 @@ function checkInstruction(directory: string, root: string, isRoot: boolean): str
 }
 
 /**
- * Audits only the known, source-controlled governance roots.
- * This traversal is intentionally scoped: no arbitrary project-wide source scan.
+ * Audits tracked and non-ignored untracked files within managed roots.
+ * Empty untracked directories do not represent repository content.
  */
 export function checkAgentCoverage(projectRoot: string): string[] {
   const root = resolve(projectRoot);
-  const issues = checkInstruction(root, root, true);
-  for (const scope of governanceRoots) {
-    const directory = join(root, scope);
-    if (!existsSync(directory)) continue;
+  const gitRoot = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+    cwd: root,
+    encoding: 'utf8',
+  }).trim();
+  if (realpathSync(gitRoot) !== realpathSync(root)) {
+    throw new Error('AGENTS coverage must run at the repository root.');
+  }
 
-    const pending = [directory];
-    while (pending.length > 0) {
-      const current = pending.pop();
-      if (current === undefined) continue;
-      issues.push(...checkInstruction(current, root, false));
-      const entries = readdirSync(current, { withFileTypes: true });
-      for (const entry of entries) {
-        if (!entry.isDirectory() || ignoredDirectories.has(entry.name)) continue;
-        pending.push(join(current, entry.name));
-      }
+  const files = execFileSync(
+    'git',
+    ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', ...governanceRoots],
+    { cwd: root, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024 },
+  ).split('\0');
+  const directories = new Set<string>();
+  for (const file of files) {
+    if (!file || !existsSync(join(root, file))) continue;
+    let directory = dirname(file);
+    while (directory !== '.') {
+      directories.add(directory);
+      directory = dirname(directory);
     }
+  }
+
+  const issues = checkInstruction(root, root, true);
+  for (const directory of [...directories].sort()) {
+    issues.push(...checkInstruction(join(root, directory), root, false));
   }
   return issues;
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
-  const issues = checkAgentCoverage(process.cwd());
-  if (issues.length > 0) {
-    console.error(issues.join('\n'));
+  try {
+    const issues = checkAgentCoverage(process.cwd());
+    if (issues.length > 0) {
+      console.error(issues.join('\n'));
+      process.exitCode = 1;
+    } else {
+      console.info('Nested AGENTS coverage and structural checks passed.');
+    }
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : 'Unable to inspect Git files.');
     process.exitCode = 1;
-  } else {
-    console.info('Nested AGENTS coverage and structural checks passed.');
   }
 }
