@@ -57,6 +57,11 @@ describe('AGENTS coverage guard', () => {
       write(root, '.gitignore', '.codex/cache/\n');
       write(root, '.codex/AGENTS.md', localInstructions);
       write(root, '.codex/cache/result.json', '{}');
+      write(root, '.serena/AGENTS.md', localInstructions);
+      write(root, '.serena/.gitignore', '/cache/\n/memories/\n/project.local.yml\n');
+      write(root, '.serena/cache/typescript/index.json', '{}');
+      write(root, '.serena/memories/local.md');
+      write(root, '.serena/project.local.yml');
       write(root, 'src/AGENTS.md', localInstructions);
       write(root, 'src/.gitignore', 'generated/\n');
       write(root, 'src/generated/cache.ts');

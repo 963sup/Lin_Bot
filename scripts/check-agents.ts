@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url';
 const governanceRoots = [
   '.github',
   '.codex',
+  '.serena',
   '.agents',
   '.vscode',
   '.devcontainer',

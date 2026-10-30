@@ -3,7 +3,7 @@
 ## Authority and scope
 
 1. `/AGENTS.md` is the **single authority** for the ten work rules, shared authorization limits, security invariants, and general DDD/Hexagonal goals.
-2. Every tracked directory under `.github/`, `.codex/`, `.agents/`, `.vscode/`, `.devcontainer/`, `docs/`, `scripts/`, `src/`, `tests/`, `infra/`, `db/`, or `assets/` has a local `AGENTS.md`.
+2. Every tracked directory under `.github/`, `.codex/`, `.serena/`, `.agents/`, `.vscode/`, `.devcontainer/`, `docs/`, `scripts/`, `src/`, `tests/`, `infra/`, `db/`, or `assets/` has a local `AGENTS.md`.
 3. Local files only add path-specific rules and validation; sibling directories do not inherit from one another. Lower scopes may tighten but must not bypass root safety/authorization rules.
 4. For a task, locate the target path and consult only the applicable ancestor chain. Only repository-wide governance audits need inspect all managed AGENTS files.
 5. `AGENTS.md` is developer guidance, not evidence of runtime support or permission. A host's actual instruction loading and capabilities need separate verification.
@@ -26,6 +26,8 @@ The instruction file named `AGENTS.md` is present in each ancestor directory abo
 - **Implemented now:** Fastify liveness, config, tests, build and CI, documented in `docs/architecture/overview.md`.
 - **Governance-only placeholders:** `src/modules/messaging/`, `db/`, `infra/`, `.devcontainer/`, `docs/line/`, `tests/contract/`, `tests/fixtures/`, and optional Copilot agents. An `AGENTS.md` under these paths **does not create a working component**.
 - **Dedicated Codex author:** `.codex/agents/agents-md-author.toml` defines a helper role; it does not automatically run, confer additional permission, or prove any host loaded it.
+- **Engineering workflow role:** `.codex/agents/engineering-workflow.toml` covers scoped discovery, Serena semantic navigation, implementation, tool evaluation, verification and authorized PR delivery. See the [usage guide](../development/engineering-agent.md); it inherits repository authority and does not imply a host has loaded it.
+- **Serena project configuration:** `.serena/project.yml` enables TypeScript LSP with portable settings. Local caches/memories are ignored; MCP connectivity must be verified separately from file presence.
 
 ## Requested directory coverage
 
