@@ -2,7 +2,7 @@
 
 ## Current state (P0/P1)
 
-Single Node.js 22+ TypeScript application. `src/app.ts` composes Fastify and `src/entrypoints/http.ts` starts the server. The only current route is `GET /health/live`; no LINE endpoint or database exists.
+Single Node.js 22.12+（22.x）、24.x 或 26+ TypeScript application. `src/app.ts` composes Fastify and `src/entrypoints/http.ts` starts the server. The only current route is `GET /health/live`; no LINE endpoint or database exists.
 
 ## Target state (P2+)
 

@@ -48,4 +48,5 @@ All paths listed above currently contain governance only. The illustrative appli
 - Modify a parent contract → check all affected child contracts and consumers; do not duplicate authority.
 - Run `pnpm run agents:check` for structural coverage and `pnpm run test` for checker behavior. Normal code changes additionally use the appropriate existing package scripts and CI.
 - The checker verifies presence, minimal sections and size, **not semantic consistency**. PR review remains required for contradictions, stale links and unsafe exceptions.
+- Coverage is derived from Git-tracked and non-ignored untracked files, including their ancestor directories. Ignored local caches and empty untracked directories are not governed. Tracked files remain governed even if a later ignore rule matches them. Git failures stop the check; run it from the repository root (linked worktrees are supported).
 - Do not auto-generate meaningless `domain/`, `application/`, `infra/` runtime components merely to match the governance tree.

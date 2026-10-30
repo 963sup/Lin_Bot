@@ -33,14 +33,18 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm run lint
+      - name: Check formatting
+        run: pnpm run format:check
       - name: Typecheck
         run: pnpm run typecheck
       - name: Unit and integration tests
         run: pnpm run test
-      - name: Domain boundary guard
+      - name: Architecture dependency guard
         run: pnpm run architecture:check
       - name: Nested AGENTS coverage
         run: pnpm run agents:check
+      - name: Unused files, exports and dependencies
+        run: pnpm run unused:check
       - name: Validate Codex TOML
         run: |
           python3 - <<'PY'

@@ -5,33 +5,35 @@
   "type": "module",
   "description": "LINE Bot engineering foundation (P0/P1)",
   "engines": {
-    "node": ">=22.0.0"
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
   },
   "packageManager": "pnpm@10.20.0",
   "scripts": {
     "dev": "tsx watch src/entrypoints/http.ts",
-    "build": "tsc --project tsconfig.json",
+    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc --project tsconfig.json",
     "start": "node dist/entrypoints/http.js",
     "typecheck": "tsc --project tsconfig.test.json --noEmit",
-    "lint": "eslint .",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \"eslint.config.mjs\" \"vitest.config.ts\"",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"scripts/**/*.ts\" \"eslint.config.mjs\" \"vitest.config.ts\"",
+    "lint": "biome lint . --error-on-warnings && eslint .",
+    "format:check": "biome format .",
+    "format": "biome format --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "architecture:check": "tsx scripts/check-boundaries.ts",
+    "architecture:check": "depcruise --config .dependency-cruiser.mjs src",
     "env:check": "tsx scripts/validate-env.ts",
     "doctor": "tsx scripts/doctor.ts",
-    "check": "pnpm run lint && pnpm run typecheck && pnpm run test && pnpm run architecture:check && pnpm run agents:check && pnpm run build",
-    "agents:check": "tsx scripts/check-agents.ts"
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm run test && pnpm run architecture:check && pnpm run agents:check && pnpm run unused:check && pnpm run build",
+    "agents:check": "tsx scripts/check-agents.ts",
+    "unused:check": "knip"
   },
   "dependencies": {
     "fastify": "^5.6.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
+    "@biomejs/biome": "2.6.4",
     "@types/node": "^22.15.30",
+    "dependency-cruiser": "18.7.0",
     "eslint": "^9.39.1",
-    "prettier": "^3.6.2",
+    "knip": "6.44.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3",

@@ -1,6 +1,6 @@
 # Local development setup
 
-Required: Node.js 22+, pnpm 10.20.0 and Git.
+Required: Node.js 22.12+（22.x）、24.x 或 26+, pnpm 10.20.0 and Git.
 
 ```sh
 corepack enable
