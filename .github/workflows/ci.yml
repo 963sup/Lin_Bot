@@ -1,8 +1,7 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [main]
+  pull_request: {}
   push:
     branches: [main]
 
@@ -40,6 +39,21 @@ jobs:
         run: pnpm run test
       - name: Domain boundary guard
         run: pnpm run architecture:check
+      - name: Nested AGENTS coverage
+        run: pnpm run agents:check
+      - name: Validate Codex TOML
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import tomllib
+          agents = list(Path(".codex/agents").glob("*.toml"))
+          assert agents, "At least one custom Codex agent is required."
+          for path in agents:
+              data = tomllib.loads(path.read_text(encoding="utf-8"))
+              for key in ("name", "description", "developer_instructions"):
+                  assert isinstance(data.get(key), str) and data[key].strip(), f"{path}: missing {key}"
+          print(f"Validated {len(agents)} Codex TOML agents")
+          PY
       - name: Build
         run: pnpm run build
       - name: Check environment defaults

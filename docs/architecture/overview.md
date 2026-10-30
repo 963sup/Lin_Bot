@@ -17,4 +17,4 @@ Use a **modular monolith** with DDD and Hexagonal boundaries per business contex
 
 Execution flows inward through an inbound adapter to a use case, then through output ports implemented by outbound adapters. **Source dependency direction and runtime call direction are not identical.**
 
-See [dependency rules](dependency-rules.md). Do not create empty folders for modules that do not exist yet.
+See [dependency rules](dependency-rules.md). AGENTS-only directories are governance placeholders requested for future work; they do not mean a business module, database, or deployment exists. Do not add runtime abstractions or components without a confirmed use case.
