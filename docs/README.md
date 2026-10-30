@@ -2,6 +2,7 @@
 
 - [Architecture](architecture/overview.md)
 - [Dependency rules](architecture/dependency-rules.md)
+- [Nested AGENTS governance](architecture/agent-governance.md)
 - [ADRs](architecture/adr/0001-engineering-foundation.md)
 - [Local setup](development/setup.md)
 - [Testing and verification](development/testing.md)

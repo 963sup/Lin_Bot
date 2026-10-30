@@ -10,6 +10,7 @@ description: Run Lin_Bot verification when runtime code, tests, build configurat
 3. Run `pnpm run typecheck`.
 4. Run `pnpm run test`.
 5. Run `pnpm run architecture:check` and `pnpm run build`.
-6. Run `pnpm run format:check` on changes within its configured scope.
-7. If commands cannot run, report exactly which were blocked and why.
-8. Report pass/fail evidence and do not claim an unexecuted check passed.
+6. For AGENTS or directory changes run `pnpm run agents:check` and inspect the applicable root-to-leaf instruction chain.
+7. Run `pnpm run format:check` on changes within its configured scope.
+8. If commands cannot run, report exactly which were blocked and why.
+9. Report pass/fail evidence and do not claim an unexecuted check passed.
